@@ -1,0 +1,81 @@
+Para instalar y acceder a Postgres desde Django
+
+1 - Instalar
+
+sudo apt update
+sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib
+
+2 - Crear Base, Usuario y darle permisos
+
+sudo -i -u postgres
+
+En el usuario posygres, ejecutar
+
+psql
+
+Entramos al bash de Postgres
+
+CREATE DATABASE myproject;
+
+CREATE USER myprojectuser WITH PASSWORD 'password';
+
+ALTER ROLE myprojectuser SET client_encoding TO 'utf8';
+ALTER ROLE myprojectuser SET default_transaction_isolation TO 'read committed';
+ALTER ROLE myprojectuser SET timezone TO 'UTC';
+
+GRANT ALL PRIVILEGES ON DATABASE myproject TO myprojectuser;
+
+GRANT postgres to myprojectuser;
+
+SALIR DE Postgres con \q
+SALIR DEL USUARIO con exit
+
+3 - Editar el archivo settings.py
+
+Reemplazar esto:
+
+DATABASES = {
+    'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+con esto:
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'myproject',
+        'USER': 'myprojectuser',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+Agregar el host para que sepa donde esta la base de datos, con esta linea
+
+ALLOWED_HOSTS = ['your_server_domain_or_IP'] # En modo local va 'localhost'
+
+4 - Ejecutar los Migrate 
+
+cd ~/myproject
+python manage.py makemigrations
+python manage.py migrate
+
+5 - Crear el SuperUsuario
+
+python manage.py createsuperuser
+
+6 - Si necesitamos darle permisos en el firewall, ejecutar
+
+sudo ufw allow 8000
+
+7 - Ejecutar Django
+
+python manage.py runserver 0.0.0.0:8000
+
+
+Salvo por el comando de la linea 28, los demas esta extraido de 
+https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-20-04

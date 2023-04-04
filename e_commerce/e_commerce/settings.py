@@ -37,7 +37,7 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -85,14 +85,23 @@ WSGI_APPLICATION = 'e_commerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': env('ENGINE'),        # Cadena del motor 'django.db.backends.postgresql'
+        'NAME': env('DATABASE'),        # Nombre de la Base de Datos 
+        'USER': env('USER'),            # Usuario de la Base de Datos 
+        'PASSWORD': env('PASSWORD'),    # Contraseña del Usuario
+        'HOST': env('HOST'),            # Nombre del Host o IP donde esta ejecutandose el servidor
+        'PORT': env('PORT'),            # Puerto al cual se debe conectar
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
