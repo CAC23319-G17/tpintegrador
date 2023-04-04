@@ -1,0 +1,7 @@
+asgiref==3.6.0
+cffi==1.15.1
+cryptography==40.0.1
+Django==4.2
+environ==1.0
+pycparser==2.21
+sqlparse==0.4.3
