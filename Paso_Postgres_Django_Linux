@@ -79,3 +79,16 @@ python manage.py runserver 0.0.0.0:8000
 
 Salvo por el comando de la linea 28, los demas esta extraido de 
 https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-20-04
+
+
+Agregado por Error de Conexión rehusada (Connection refused) postgres
+
+sudo nano /etc/selinux/config
+
+Si esta en blanco, escribir
+
+SELINUX=disabled
+
+sino cambiar
+
+SELINUX=enforcing por SELINUX=disabled
