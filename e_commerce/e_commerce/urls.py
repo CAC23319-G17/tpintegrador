@@ -21,9 +21,9 @@ from django.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    path('carrito', include('carrito.urls')),
-    path('pedidos', include('pedidos.urls')),
-    path('productos', include('productos.urls')),
-    path('userApp', include('userApp.urls')),
+    # path('carrito', include('carrito.urls')),
+    # path('pedidos', include('pedidos.urls')),
+    # path('productos', include('productos.urls')),
+    # path('userApp', include('userApp.urls')),
     
 ]
