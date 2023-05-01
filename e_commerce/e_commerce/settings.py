@@ -33,7 +33,7 @@ SECRET_KEY=env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -90,17 +90,18 @@ WSGI_APPLICATION = 'e_commerce.wsgi.application'
 # }
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': env('ENGINE'),        # Cadena del motor 'django.db.backends.postgresql'
-        'NAME': env('DATABASE'),        # Nombre de la Base de Datos 
-        'USER': env('USER'),            # Usuario de la Base de Datos 
-        'PASSWORD': env('PASSWORD'),    # Contraseña del Usuario
-        'HOST': env('HOST'),            # Nombre del Host o IP donde esta ejecutandose el servidor
-        'PORT': env('PORT'),            # Puerto al cual se debe conectar
-    }
-}
-# Password validation
+# DATABASES = {
+#     'default': {
+#         'ENGINE': f"{env('ENGINE')}",   # Cadena del motor 'django.db.backends.postgresql'
+#         'NAME': env('DATABASE'),        # Nombre de la Base de Datos 
+#         'USER': f"{env('USER')}",       # Usuario de la Base de Datos 
+#         'PASSWORD': env('PASSWORD'),    # Contraseña del Usuario
+#         'HOST': env('HOST'),            # Nombre del Host o IP donde esta ejecutandose el servidor
+#         'PORT': env('PORT'),            # Puerto al cual se debe conectar
+#         # 'OPTIONS': {'sslmode': 'disable'},
+#     }
+# }
+# # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
