@@ -17,9 +17,9 @@ def validate_email(value):
 class ContactoForm(forms.Form):
     TIPO_CONSULTA = (
         ('','-Seleccione-'),
-        (1,'Inscripciones'),
-        (2,'Soporte Aula Virtual'),
-        (3,'Ser docente'),
+        (1,'General'),
+        (2,'Productos Nuevos'),
+        (3,'Novedades'),
     )
     nombre = forms.CharField(
             label='Nombre', 
@@ -56,7 +56,7 @@ class ContactoForm(forms.Form):
         widget=forms.Select(attrs={'class':'form-control'})
     )
     suscripcion = forms.BooleanField(
-        label='Deseo suscribirme a las novedades de codo a codo',
+        label='Deseo suscribirme a las novedades??',
         required=False,
         widget=forms.CheckboxInput(attrs={'class':'form-check-input','value':1})
     )
