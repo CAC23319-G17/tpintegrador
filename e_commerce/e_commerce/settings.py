@@ -21,8 +21,8 @@ if not file.exists():
     archkey.writelines(f'SECRET_KEY={SECRET_KEY}')
     archkey.writelines(f'\nENGINE=')
     archkey.writelines(f'\nDATABASE=')
-    archkey.writelines(f'\nUSER=')
-    archkey.writelines(f'\nPASSWORD=')
+    archkey.writelines(f'\nUSERDB=')
+    archkey.writelines(f'\nPASSWORDDB=')
     archkey.writelines(f'\nHOST=')
     archkey.writelines(f'\nPORT=')
     archkey.close()
@@ -90,18 +90,19 @@ WSGI_APPLICATION = 'e_commerce.wsgi.application'
 # }
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': f"{env('ENGINE')}",   # Cadena del motor 'django.db.backends.postgresql'
-#         'NAME': env('DATABASE'),        # Nombre de la Base de Datos 
-#         'USER': f"{env('USER')}",       # Usuario de la Base de Datos 
-#         'PASSWORD': env('PASSWORD'),    # Contraseña del Usuario
-#         'HOST': env('HOST'),            # Nombre del Host o IP donde esta ejecutandose el servidor
-#         'PORT': env('PORT'),            # Puerto al cual se debe conectar
-#         # 'OPTIONS': {'sslmode': 'disable'},
-#     }
-# }
-# # Password validation
+DATABASES = {
+    'default': {
+        'ENGINE': env('ENGINE'),   # Cadena del motor 'django.db.backends.postgresql'
+        'NAME': env('DATABASE'),        # Nombre de la Base de Datos 
+        'USER': env('USERDB'),       # Usuario de la Base de Datos 
+        'PASSWORD': env('PASSWORDDB'),    # Contraseña del Usuario
+        'HOST': env('HOST'),            # Nombre del Host o IP donde esta ejecutandose el servidor
+        'PORT': env('PORT'),            # Puerto al cual se debe conectar
+    }
+}
+
+print(DATABASES)
+# Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
