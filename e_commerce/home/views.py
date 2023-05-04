@@ -11,8 +11,9 @@ from django.conf import settings
 def index(request):
     if not 'SITE_NAME' in request.session:
         request.session['SITE_NAME'] = '"La Tiendita" SHOP'
-        request.session['COUNT_CART'] = 2
+        request.session['COUNT_CART'] = 0
         request.session.modified = True
+    print(request.session['COUNT_CART'])
     data = [{"id":1,"name":"Retained cholelithiasis following cholecystectomy","spec":"Drainage of Right Brachial Artery, Open Approach","price":6110.9,"ranking":3.0,"urlimage":155},
             {"id":2,"name":"Other superficial bite of hip, right hip","spec":"Removal of Drainage Device from Cervical Vertebral Disc, Percutaneous Endoscopic Approach","price":6697.15,"ranking":1.4,"urlimage":153},
             {"id":3,"name":"Major laceration of unspecified part of pancreas, sequela","spec":"Bypass Coronary Artery, Two Arteries from Aorta with Autologous Venous Tissue, Open Approach","price":6080.45,"ranking":1.7,"urlimage":299},
@@ -24,11 +25,17 @@ def index(request):
             ]
     context = {
         'data': data,
+        'sesion': request.session,
     }
     return render(request, 'home/index.html', context)
 
 def about(request):
-    return render(request, 'home/about.html')
+    request.session['COUNT_CART'] += 1
+    context = {
+        'data': {},
+        'sesion': request.session,
+    }
+    return render(request, 'home/about.html', context=context)
 
 def contact(request):
     # mensaje=None
