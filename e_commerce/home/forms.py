@@ -75,3 +75,35 @@ class ContactoForm(forms.Form):
         if suscripcion and asunto and "suscripcion" not in asunto:
             msg = "Debe agregar la palabara 'suscripcion' al asunto."
             self.add_error('asunto', msg)
+
+class AboutForm(forms.Form):
+
+    nombre = forms.CharField(
+            label='Nombre', 
+            max_length=50,
+            validators=(solo_caracteres,),
+            widget=forms.TextInput(
+                    attrs={'class':'form-control',
+                        'placeholder':'Solo letras'}
+                    )
+        )
+    email = forms.EmailField(
+            label='Email',
+            max_length=100,
+            required=False,
+            validators=(validate_email,),
+            error_messages={
+                    'required': 'Por favor completa el campo'
+                },
+            widget=forms.TextInput(attrs={'class':'form-control','type':'email'})
+        )
+    asunto = forms.CharField(
+        label='Asunto',
+        max_length=100,
+        widget=forms.TextInput(attrs={'class':'form-control'})
+    )
+    mensaje = forms.CharField(
+        label='Mensaje',
+        max_length=500,
+        widget=forms.Textarea(attrs={'rows': 5,'class':'form-control'})
+    )
