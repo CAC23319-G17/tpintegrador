@@ -179,3 +179,6 @@ EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 # Clave generada desde la configuracion de Google
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 RECIPIENT_ADDRESS = env("RECIPIENT_ADDRESS")
+
+# Redireccion de LOGIN para que no de error 404
+LOGIN_REDIRECT_URL = 'index'
