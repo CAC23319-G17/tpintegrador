@@ -1,0 +1,31 @@
+{% extends 'home/layout.html' %}
+
+{% block main %}
+<section class="py-5">
+    <div class="d-flex justify-content-center pt-3">
+        <form class="form" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>{{ form.username.label_tag }}</td>
+                    <td class="px-3">{{ form.username }}</td>
+                </tr>
+                <tr>
+                    <td class="pt-3">{{ form.password.label_tag }}</td>
+                    <td class="p-3">{{ form.password }}</td>
+                </tr>
+            </table>
+            <div class="d-flex justify-content-center pt-3 gap-3">
+                <button class="btn btn-success" type="submit" id="submit">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    Login
+                </button>
+                <button class="btn btn-danger" onclick="location.href='{% url 'register' %}'">
+                    <i class="bi bi-people"></i>
+                    Register
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock main %}

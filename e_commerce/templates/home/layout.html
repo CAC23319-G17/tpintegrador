@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>La Tiendita (Shop)</title>
+        <title>{{ sesion.SITE_NAME }}</title>
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -16,40 +16,47 @@
         <!-- Carga elementos estaticos del proyectos de (Imagenes, JS y CSS)-->
         {% load static %}
         <link rel="shortcut icon" type="image/png" href="{% static 'home/img/favicon.ico' %}"/>
-        <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
-
+        <link rel="stylesheet" href="{% static 'home/css/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'productos/css/styles.css' %}">
     </head>
     <body>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#!">"La Tiendita" Clothing</a>
+                <a class="navbar-brand" href="#!">{{ sesion.SITE_NAME }}</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
+                                <li><a class="dropdown-item" href="{% url 'prodall' %}">All Products</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                                <li><a class="dropdown-item" href="{% url 'prodpopular' %}">Popular Items</a></li>
+                                <li><a class="dropdown-item" href="{% url 'prodnews' %}">New Arrivals</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
                     </ul>
                     <div class="d-flex flex-row mb-3">
                         <button class="btn btn-outline-dark mx-2">
                             <i class="bi-cart-fill me-1"></i>
                             Carrito
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">{{ sesion.COUNT_CART }}</span>
                         </button>
-                        
-                        <button class="btn btn-dark mx-2">
-                            <i class="bi bi-people"></i>
-                            Login
+                        {% if not request.user.is_authenticated %}
+                        <button class="btn btn-dark mx-2" onclick="location.href='{% url 'login' %}'">
+                          <i class="bi bi-box-arrow-in-right"></i>
+                          Login
                         </button>
+                        {% else %}
+                          <button class="btn btn-dark mx-2" onclick="location.href='{% url 'logout' %}'">
+                            <i class="bi bi-box-arrow-right"></i>
+                            Logout
+                          </button>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -82,8 +89,31 @@
         {% comment %} Carga de Views de las otras apps {% endcomment %}
         {% endblock main %}
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Grupo 17 - Comision 23319 - 2023</p></div>
-        </footer>
+        {% include './footer.html' %}
+
+        <!-- Modal Login-->
+        <div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      ...
+                      <form class="form" method="post">
+                          {% csrf_token %}
+                          {{ form.as_p }}
+                          
+                          <button class="btn btn-success" type="submit" id="submit">login</button>
+                      </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+              </div>
+          </div>
+      </div>
     </body>
 </html>

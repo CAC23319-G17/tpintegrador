@@ -18,7 +18,20 @@ file = Path(os.path.join(BASE_DIR, '.env'))
 if not file.exists():
     SECRET_KEY = Fernet.generate_key()
     archkey = open(os.path.join(BASE_DIR, '.env'), 'w')
-    archkey.writelines(f'SECRET_KEY={SECRET_KEY}')
+    archkey.writelines(f'# Clave secreta de la App')
+    archkey.writelines(f'\nSECRET_KEY={SECRET_KEY}')
+    # BASE DE DATOS
+    archkey.writelines(f'\n')
+    archkey.writelines(f'\n#DATABASE')
+    archkey.writelines(f'\nENGINE=')
+    archkey.writelines(f'\nDATABASE=')
+    archkey.writelines(f'\nUSERDB=')
+    archkey.writelines(f'\nPASSWORDDB=')
+    archkey.writelines(f'\nHOST=')
+    archkey.writelines(f'\nPORT=')
+    # EMAIL
+    archkey.writelines(f'\n')
+    archkey.writelines(f'\n#CORREO')
     archkey.writelines(f'\nENGINE=')
     archkey.writelines(f'\nDATABASE=')
     archkey.writelines(f'\nUSERDB=')
@@ -45,7 +58,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'home', 'carrito', 'pedidos', 'productos', 'userApp'
+    'home', 
+    # 'carrito', 
+    # 'pedidos', 
+    'productos', 
+    'userApp'
 ]
 
 MIDDLEWARE = [
@@ -124,7 +141,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ar'
 
 TIME_ZONE = 'UTC'
 
@@ -156,3 +173,16 @@ if os.name == "nt":
     os.system("cls")
 else:
     os.system("clear")
+
+#Configuracion para el envio de email por medio de GMAIL
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+# Clave generada desde la configuracion de Google
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+RECIPIENT_ADDRESS = env("RECIPIENT_ADDRESS")
+
+# Redireccion de LOGIN para que no de error 404
+LOGIN_REDIRECT_URL = 'index'
