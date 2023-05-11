@@ -14,4 +14,11 @@ def productos(request):
     context={
         'data':data
     }
-    return render(request,'productos/productos.html',context)
+    return render(request,'productos/al_products.html',context)
+
+
+def new_arrivals(request):
+    context = {
+
+    }
+    return render(request, 'porductos/new_arrivals.html', context)
