@@ -23,7 +23,7 @@ def index(request):
     return render(request, 'home/index.html', context)
 
 def about(request):
-    request.session['COUNT_CART'] += 1
+    # request.session['COUNT_CART'] += 1
     context = {
         'data': {},
         'sesion': request.session,

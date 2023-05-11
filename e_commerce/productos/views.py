@@ -37,7 +37,7 @@ def prod_news(request):
         datos['SITE_NAME'] = request.session['SITE_NAME']
         datos['COUNT_CART'] = request.session['COUNT_CART']
     request.session.modified = True
-    response = requests.get('https://fakestoreapi.com/products?sort=asc?limit=8')
+    response = requests.get('https://fakestoreapi.com/products?sort=asc')
     products = response.json()
     context = {
         'data': products,
